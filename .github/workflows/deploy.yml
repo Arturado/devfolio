@@ -1,9 +1,7 @@
 name: Deploy to Server
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch  # Manual push 
 
 jobs:
   deploy:
@@ -21,12 +19,5 @@ jobs:
             cd /var/www/devfolio
             git fetch origin
             git reset --hard origin/main
-            cd frontend
-            npm install
-            npm run build
-            pm2 restart devfolio-frontend
-            cd ../backend
-            npm install
-            npx prisma generate
-            npm run build
-            pm2 restart devfolio-backend
+            cd frontend && npm install && npm run build && pm2 restart devfolio-frontend
+            cd ../backend && npm install && npx prisma generate && npm run build && pm2 restart devfolio-backend
